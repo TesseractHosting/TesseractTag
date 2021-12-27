@@ -41,6 +41,7 @@ public class PlayerHurtListener extends ShadowListener{
             return;
         }
         event.setDamage(10);
+        ((Player) event.getDamager()).getInventory().clear();
         //Hunter is hunter
     }
 }

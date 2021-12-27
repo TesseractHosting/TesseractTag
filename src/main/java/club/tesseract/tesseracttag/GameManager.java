@@ -5,15 +5,18 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
-
+import org.bukkit.inventory.ItemStack;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+
+
 
 public class GameManager {
 
@@ -61,8 +64,13 @@ public class GameManager {
         }
         tagged.setHunter(true);
         Player player = tagged.getPlayer();
+
         player.sendMessage("Tag! you are it.");
+
+        player.sendMessage(ChatColor.RED + "Tag! you are it.");
+        player.getInventory().addItem(new ItemStack(Material.NAME_TAG));
+
         hunterId = uuid;
-        Bukkit.broadcast(Component.text(player.getName()+" is now it."));
+        Bukkit.broadcast(Component.text(ChatColor.RED + player.getName()+" is now it."));
     }
 }
