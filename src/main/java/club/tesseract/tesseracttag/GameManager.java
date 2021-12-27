@@ -8,6 +8,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
+
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +61,7 @@ public class GameManager {
         }
         tagged.setHunter(true);
         Player player = tagged.getPlayer();
-        player.sendMessage("Tag you are it.");
+        player.sendMessage("Tag! you are it.");
         hunterId = uuid;
         Bukkit.broadcast(Component.text(player.getName()+" is now it."));
     }
