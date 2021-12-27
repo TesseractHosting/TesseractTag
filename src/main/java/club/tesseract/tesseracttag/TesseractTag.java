@@ -4,6 +4,7 @@ import club.tesseract.tesseracttag.commands.utils.DynamicCommand;
 import club.tesseract.tesseracttag.commands.utils.ShadowCommand;
 import club.tesseract.tesseracttag.listeners.*;
 import club.tesseract.tesseracttag.tasks.ActionBarTask;
+import club.tesseract.tesseracttag.utils.ShadowScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.event.HandlerList;
@@ -16,7 +17,6 @@ public class TesseractTag extends JavaPlugin {
 
     static TesseractTag plugin = null;
     private GameManager gameManager;
-    private RoundManager roundManager;
 
     @Override
     public void onLoad() {
@@ -25,7 +25,6 @@ public class TesseractTag extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        roundManager = new RoundManager(this);
         gameManager = new GameManager();
         registerEvents();
         registerCommands();
@@ -37,6 +36,7 @@ public class TesseractTag extends JavaPlugin {
     public void onDisable() {
         HandlerList.unregisterAll(this);
         gameManager.setHunter(null);
+        ShadowScoreboard.shutdown();
         ActionBarTask.shutdown();
         getLogger().info("Plugin Disabled");
     }
@@ -46,7 +46,6 @@ public class TesseractTag extends JavaPlugin {
         new PlayerJoinListener(this);
         new PlayerQuitListener(this);
         new PlayerHurtListener(this);
-        new PlayerDeathListener(this);
         new PlayerMoveListener(this);
         new PlayerDropItemListener();
     }
@@ -91,10 +90,6 @@ public class TesseractTag extends JavaPlugin {
     }
     public GameManager getGameManager() {
         return gameManager;
-    }
-
-    public RoundManager getRoundManager() {
-        return roundManager;
     }
 
     public static TesseractTag getPlugin() {

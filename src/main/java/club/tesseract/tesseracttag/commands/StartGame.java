@@ -20,10 +20,7 @@ public class StartGame extends ShadowCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args){
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.setGameMode(GameMode.SPECTATOR);
-        }
-        plugin.getRoundManager().startRound();
+        plugin.getGameManager().startGame();
 
     }
 }

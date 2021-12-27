@@ -2,11 +2,13 @@ package club.tesseract.tesseracttag.listeners;
 
 import club.tesseract.tesseracttag.TesseractTag;
 import club.tesseract.tesseracttag.player.TagPlayer;
+import club.tesseract.tesseracttag.utils.ShadowScoreboard;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scoreboard.Scoreboard;
 
 public class PlayerJoinListener extends ShadowListener{
 
@@ -24,5 +26,6 @@ public class PlayerJoinListener extends ShadowListener{
     public void onJoin(PlayerJoinEvent event){
         event.joinMessage(symbol.append(Component.text(event.getPlayer().getName()+" Joined the game")));
         plugin.getGameManager().addPlayer(TagPlayer.create(event.getPlayer()));
+        ShadowScoreboard.sendScoreboardUpdate();
     }
 }

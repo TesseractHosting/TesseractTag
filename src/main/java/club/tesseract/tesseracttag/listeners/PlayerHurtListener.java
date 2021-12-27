@@ -2,6 +2,7 @@ package club.tesseract.tesseracttag.listeners;
 
 import club.tesseract.tesseracttag.TesseractTag;
 import club.tesseract.tesseracttag.player.TagPlayer;
+import club.tesseract.tesseracttag.utils.GameState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,6 +27,10 @@ public class PlayerHurtListener extends ShadowListener{
     // Only Allow Hunters To Cause Damage
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onHurtByEntity(EntityDamageByEntityEvent event) {
+        if(plugin.getGameManager().getGameState() != GameState.PLAYING){
+            event.setCancelled(true);
+            return;
+        }
         if (!(event.getEntity() instanceof Player) || !(event.getDamager() instanceof Player)) {
             event.setCancelled(true);
             return;
@@ -35,12 +40,12 @@ public class PlayerHurtListener extends ShadowListener{
             event.setCancelled(true);
             return;
         }
-        if (!hunter.isHunter()) {
+        if (!hunter.isHunter() || hunter.onCoolDown()) {
             event.setCancelled(true);
             return;
         }
-        event.setDamage(10);
+        event.setCancelled(true);
         ((Player) event.getDamager()).getInventory().clear();
-        //Hunter is hunter
+        plugin.getGameManager().setHunter(event.getEntity().getUniqueId());
     }
 }
