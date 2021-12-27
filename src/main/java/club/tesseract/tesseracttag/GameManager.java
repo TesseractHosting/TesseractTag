@@ -65,8 +65,6 @@ public class GameManager {
         Player player = tagged.getPlayer();
 
         player.sendMessage("Tag! you are it.");
-
-        player.sendMessage(ChatColor.RED + "Tag! you are it.");
         player.getInventory().addItem(new ItemStack(Material.NAME_TAG));
 
         hunterId = uuid;
