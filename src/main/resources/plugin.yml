@@ -1,0 +1,5 @@
+name: TesseractTag
+main: club.tesseract.tesseracttag.TesseractTag
+version: @version@
+authors: ["ThousandthStar", "TropicalShadow"]
+api-version: 1.18
