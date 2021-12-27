@@ -2,10 +2,7 @@ package club.tesseract.tesseracttag;
 
 import club.tesseract.tesseracttag.commands.utils.DynamicCommand;
 import club.tesseract.tesseracttag.commands.utils.ShadowCommand;
-import club.tesseract.tesseracttag.listeners.PlayerDeathListener;
-import club.tesseract.tesseracttag.listeners.PlayerHurtListener;
-import club.tesseract.tesseracttag.listeners.PlayerJoinListener;
-import club.tesseract.tesseracttag.listeners.PlayerQuitListener;
+import club.tesseract.tesseracttag.listeners.*;
 import club.tesseract.tesseracttag.tasks.ActionBarTask;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
@@ -53,6 +50,8 @@ public class TesseractTag extends JavaPlugin {
         new PlayerQuitListener(this);
         new PlayerHurtListener(this);
         new PlayerDeathListener(this);
+        new PlayerMoveListener(this);
+        new PlayerDropItemListener();
     }
 
     private void registerCommands(){
