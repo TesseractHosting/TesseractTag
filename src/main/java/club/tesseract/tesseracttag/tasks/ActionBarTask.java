@@ -28,7 +28,7 @@ public class ActionBarTask extends BukkitRunnable {
             Player player = tagPlayer.getPlayer();
             if(tagPlayer.isHunter())
                 if(!tagPlayer.onCoolDown())
-                    player.sendActionBar(Component.text("Hunt your pray"));
+                    player.sendActionBar(Component.text("Hunt your prey"));
                 else
                     player.sendActionBar(Component.text("Cooldown "+ tagPlayer.getCooldown()+" Seconds left"));
             else
