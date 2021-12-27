@@ -2,7 +2,6 @@ package club.tesseract.tesseracttag;
 
 import club.tesseract.tesseracttag.player.TagPlayer;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

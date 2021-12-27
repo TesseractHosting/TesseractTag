@@ -1,7 +1,6 @@
 package club.tesseract.tesseracttag.commands.utils;
 
 import club.tesseract.tesseracttag.TesseractTag;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
