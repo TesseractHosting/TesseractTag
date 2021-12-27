@@ -16,6 +16,7 @@ public class TesseractTag extends JavaPlugin {
 
     static TesseractTag plugin = null;
     private GameManager gameManager;
+    private RoundManager roundManager;
 
     @Override
     public void onLoad() {
@@ -24,11 +25,7 @@ public class TesseractTag extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        //TODO -
-        // Countdown for each `death`
-        // change hunter on player leave?
-        // Dead with dead people... spectator? make sure they can't interact and make sure they can't become hunter
-        // Add colour to name above head
+        roundManager = new RoundManager(this);
         gameManager = new GameManager();
         registerEvents();
         registerCommands();
@@ -94,6 +91,10 @@ public class TesseractTag extends JavaPlugin {
     }
     public GameManager getGameManager() {
         return gameManager;
+    }
+
+    public RoundManager getRoundManager() {
+        return roundManager;
     }
 
     public static TesseractTag getPlugin() {
