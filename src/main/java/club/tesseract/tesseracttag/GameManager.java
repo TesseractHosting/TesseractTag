@@ -32,10 +32,7 @@ public class GameManager {
         Player bukkitPlayer = player.getPlayer();
         bukkitPlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(1);
         bukkitPlayer.setSaturation(1000);
-        bukkitPlayer.setCustomNameVisible(true);
-        bukkitPlayer.displayName(Component.text(bukkitPlayer.getName(), NamedTextColor.GREEN));
-        bukkitPlayer.playerListName(Component.text(bukkitPlayer.getName(), NamedTextColor.GREEN));
-        bukkitPlayer.setCustomName("test"+bukkitPlayer.getName());
+        player.changeName();
     }
 
     public void removePlayer(UUID uuid){

@@ -1,12 +1,16 @@
 package club.tesseract.tesseracttag.player;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import java.lang.reflect.Field;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -60,6 +64,7 @@ public class TagPlayer {
         this.hunter = hunter;
         PlayerInventory inv = getPlayer().getInventory();
         timestamp =  Instant.now().getEpochSecond();
+        changeName();
         if(hunter){
             inv.setHelmet(new ItemStack(Material.RED_WOOL));
             inv.setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
@@ -80,5 +85,29 @@ public class TagPlayer {
 
     public UUID getUniqueId() {
         return uniqueId;
+    }
+
+
+    public void changeName() {
+        NamedTextColor colour = isHunter() ? NamedTextColor.RED : NamedTextColor.GREEN;
+        ChatColor chatColour = isHunter() ? ChatColor.RED : ChatColor.GREEN;
+        Player player = getPlayer();
+        String name = ChatColor.stripColor(player.getName());
+        player.customName(Component.text(name, colour));
+        player.playerListName(Component.text(name, colour));
+        player.displayName(Component.text(name, colour));
+        try {
+            player.getPlayerProfile().setName(chatColour+name);
+            Object profile = player.getClass().getMethod("getProfile").invoke(player);
+            Field ff = profile.getClass().getDeclaredField("name");
+            ff.setAccessible(true);
+            ff.set(profile, chatColour+name);
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                p.hidePlayer(player);
+                p.showPlayer(player);
+            }
+        }catch( Exception e){
+            e.printStackTrace();
+        }
     }
 }
