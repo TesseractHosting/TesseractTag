@@ -24,6 +24,7 @@ public class TagPlayer {
     private long timestamp;
     private boolean hunter;
     private boolean dead;
+    private boolean frozen;
 
     public TagPlayer(UUID uniqueId){
         this.uniqueId = uniqueId;
@@ -59,6 +60,10 @@ public class TagPlayer {
     public boolean onCoolDown(){
         return timestamp+5 > Instant.now().getEpochSecond();
     }
+
+    public boolean isFrozen() {return this.frozen ;}
+
+    public void setFrozen(boolean frozen) {this.frozen = frozen;}
 
     public void setHunter(boolean hunter) {
         this.hunter = hunter;
