@@ -27,6 +27,10 @@ public class TesseractTag extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        //TODO -
+        // Countdown for each `death`
+        // change hunter on player leave?
+        // Dead with dead people... spectator? make sure they can't interact and make sure they can't become hunter
         gameManager = new GameManager();
         registerEvents();
         registerCommands();

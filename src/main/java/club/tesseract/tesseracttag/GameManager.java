@@ -2,7 +2,9 @@ package club.tesseract.tesseracttag;
 
 import club.tesseract.tesseracttag.player.TagPlayer;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
@@ -27,7 +29,13 @@ public class GameManager {
 
     public void addPlayer(TagPlayer player){
         players.put(player.getUniqueId(), player);
-        player.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(1);
+        Player bukkitPlayer = player.getPlayer();
+        bukkitPlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(1);
+        bukkitPlayer.setSaturation(1000);
+        bukkitPlayer.setCustomNameVisible(true);
+        bukkitPlayer.displayName(Component.text(bukkitPlayer.getName(), NamedTextColor.GREEN));
+        bukkitPlayer.playerListName(Component.text(bukkitPlayer.getName(), NamedTextColor.GREEN));
+        bukkitPlayer.setCustomName("test"+bukkitPlayer.getName());
     }
 
     public void removePlayer(UUID uuid){

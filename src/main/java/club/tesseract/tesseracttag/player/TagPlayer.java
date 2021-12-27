@@ -3,16 +3,11 @@ package club.tesseract.tesseracttag.player;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
 
 public class TagPlayer {
@@ -24,10 +19,18 @@ public class TagPlayer {
     private final UUID uniqueId;
     private long timestamp;
     private boolean hunter;
+    private boolean dead;
 
     public TagPlayer(UUID uniqueId){
         this.uniqueId = uniqueId;
         this.hunter = false;
+        this.dead = false;
+    }
+
+    public TagPlayer(UUID uniqueId, boolean dead){
+        this.uniqueId = uniqueId;
+        this.hunter = false;
+        this.dead = dead;
     }
 
     public Player getPlayer(){
@@ -35,6 +38,10 @@ public class TagPlayer {
     }
     public OfflinePlayer getOfflinePlayer(){
         return Bukkit.getOfflinePlayer(this.uniqueId);
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 
     public long getTimestamp() {
