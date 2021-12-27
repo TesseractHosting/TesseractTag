@@ -18,6 +18,6 @@ public class PlayerDeathListener extends ShadowListener {
         event.setCancelled(true);//We never let you die ;)
         //We dealth with damage to the player in PlayerHurtListener... so they `should` only die IF they were to get smacked by the hunter
         plugin.getGameManager().setHunter(event.getPlayer().getUniqueId());
-        Bukkit.broadcast(Component.text(event.getPlayer().getName()+" is now it."));
+
     }
 }

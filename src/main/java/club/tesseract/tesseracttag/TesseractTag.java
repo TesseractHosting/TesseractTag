@@ -6,6 +6,7 @@ import club.tesseract.tesseracttag.listeners.PlayerDeathListener;
 import club.tesseract.tesseracttag.listeners.PlayerHurtListener;
 import club.tesseract.tesseracttag.listeners.PlayerJoinListener;
 import club.tesseract.tesseracttag.listeners.PlayerQuitListener;
+import club.tesseract.tesseracttag.tasks.ActionBarTask;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.event.HandlerList;
@@ -29,12 +30,15 @@ public class TesseractTag extends JavaPlugin {
         gameManager = new GameManager();
         registerEvents();
         registerCommands();
+        ActionBarTask.start();
         getLogger().info("Plugin Enabled");
     }
 
     @Override
     public void onDisable() {
         HandlerList.unregisterAll(this);
+        gameManager.setHunter(null);
+        ActionBarTask.shutdown();
         getLogger().info("Plugin Disabled");
     }
 
