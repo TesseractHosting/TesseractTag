@@ -1,8 +1,6 @@
 package club.tesseract.tesseracttag.listeners;
 
 import club.tesseract.tesseracttag.TesseractTag;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
