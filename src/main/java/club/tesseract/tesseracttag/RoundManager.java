@@ -35,7 +35,7 @@ public class RoundManager {
     public void startRound(boolean firstRound){
         int time = calculateTimer();
         if (firstRound) {
-            GlobalTaskTimer.create(time, this::releaseHunters);
+            GlobalTaskTimer.create(7, this::releaseHunters);
             return;
         }
         round += 1;
@@ -48,7 +48,7 @@ public class RoundManager {
             TagPlayer tagPlayer = manager.getPlayer(player.getUniqueId());
             player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, player.getLocation(), 100);
             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
-            tagPlayer.setHunter(false);
+            if(tagPlayer != null)tagPlayer.setHunter(false);
         }
         if(manager.getPlayers().size() <= 2){
             if(manager.getHunter() != null)

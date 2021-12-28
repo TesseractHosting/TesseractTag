@@ -5,11 +5,13 @@ import club.tesseract.tesseracttag.utils.GameState;
 import club.tesseract.tesseracttag.tasks.GlobalTaskTimer;
 import club.tesseract.tesseracttag.utils.ShadowScoreboard;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -21,13 +23,23 @@ import java.util.UUID;
 
 public class GameManager {
 
+    private final static Location spawn = new Location(Bukkit.getWorlds().get(0), 0, 63, 0);
     private final HashMap<UUID, TagPlayer> players = new HashMap<>();
     private GameState gameState = GameState.IDLE;
     private RoundManager roundManager;
+    private final ItemStack nameTag;
     private UUID hunterId = null;
 
     public GameManager(){
         roundManager = new RoundManager(this);
+        nameTag = new ItemStack(Material.NAME_TAG);
+        ItemMeta meta = nameTag.getItemMeta();
+        meta.displayName(Component.text("TAG", NamedTextColor.RED));
+        ArrayList<Component> lore = new ArrayList<>();
+        lore.add(Component.text("Easter Egg", NamedTextColor.WHITE));
+        lore.add(Component.text(";)", NamedTextColor.WHITE));
+        meta.lore(lore);
+        nameTag.setItemMeta(meta);
     }
 
 
@@ -109,7 +121,7 @@ public class GameManager {
         Player player = tagged.getPlayer();
 
         player.sendMessage("Tag! you are it.");
-        player.getInventory().addItem(new ItemStack(Material.NAME_TAG));
+        player.getInventory().addItem(nameTag);
 
         Bukkit.broadcast(Component.text(ChatColor.RED + player.getName()+" is now it."));
         ShadowScoreboard.sendScoreboardUpdate();
@@ -119,7 +131,11 @@ public class GameManager {
         gameState = GameState.IDLE;
         setHunter(null);
         players.clear();
-        Bukkit.getOnlinePlayers().forEach(player -> addPlayer(TagPlayer.create(player)));
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            addPlayer(TagPlayer.create(player));
+            player.teleport(spawn);
+            player.getInventory().clear();
+        });
         ShadowScoreboard.sendScoreboardUpdate();
     }
 
@@ -133,7 +149,7 @@ public class GameManager {
         this.getHunter().setAllowFlight(true);
         this.getHunter().setFlying(true);
         Bukkit.getOnlinePlayers().forEach(player->{
-            player.teleport(new Location(Bukkit.getWorlds().get(0), 0, 63, 0));
+            player.teleport(spawn);
         });
         roundManager.startRound(true);
         Bukkit.broadcast(Component.text(ChatColor.YELLOW + "You have "+roundManager.calculateTimer()+" seconds to run from the hunter!"));

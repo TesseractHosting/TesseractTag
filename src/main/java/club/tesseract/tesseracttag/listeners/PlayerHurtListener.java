@@ -3,6 +3,9 @@ package club.tesseract.tesseracttag.listeners;
 import club.tesseract.tesseracttag.TesseractTag;
 import club.tesseract.tesseracttag.player.TagPlayer;
 import club.tesseract.tesseracttag.utils.GameState;
+import org.bukkit.EntityEffect;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -47,5 +50,8 @@ public class PlayerHurtListener extends ShadowListener{
         event.setCancelled(true);
         ((Player) event.getDamager()).getInventory().clear();
         plugin.getGameManager().setHunter(event.getEntity().getUniqueId());
+        event.getEntity().getWorld().spawnParticle(Particle.DAMAGE_INDICATOR, event.getEntity().getLocation(), 100, 0.5, 0.5, 0.5);
+        ((Player) event.getEntity()).playSound(event.getEntity().getLocation(), Sound.ENTITY_TURTLE_EGG_BREAK, 1, 1);
+        ((Player) event.getDamager()).playSound(event.getDamager().getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1,1);
     }
 }
