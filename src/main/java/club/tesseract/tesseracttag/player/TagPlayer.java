@@ -31,12 +31,14 @@ public class TagPlayer {
         this.uniqueId = uniqueId;
         this.hunter = false;
         this.dead = false;
+        this.timestamp = Instant.now().getEpochSecond();
     }
 
     public TagPlayer(UUID uniqueId, boolean dead){
         this.uniqueId = uniqueId;
         this.hunter = false;
         this.dead = dead;
+        this.timestamp = Instant.now().getEpochSecond();
     }
 
     public Player getPlayer(){
@@ -98,12 +100,15 @@ public class TagPlayer {
         player.customName(Component.text(name, colour));
         player.playerListName(Component.text(name, colour));
         player.displayName(Component.text(name, colour));
+        if((chatColour+name).length()<=16){
+            name = chatColour + name;
+        }
         try {
-            player.getPlayerProfile().setName(chatColour+name);
+            player.getPlayerProfile().setName(name);
             Object profile = player.getClass().getMethod("getProfile").invoke(player);
             Field ff = profile.getClass().getDeclaredField("name");
             ff.setAccessible(true);
-            ff.set(profile, chatColour+name);
+            ff.set(profile, name);
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.hidePlayer(player);
                 p.showPlayer(player);

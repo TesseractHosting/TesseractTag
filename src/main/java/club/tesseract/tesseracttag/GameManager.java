@@ -67,8 +67,11 @@ public class GameManager {
     }
 
     public void addPlayer(TagPlayer player){
-        players.put(player.getUniqueId(), player);
         Player bukkitPlayer = player.getPlayer();
+        bukkitPlayer.getInventory().clear();
+        bukkitPlayer.getActivePotionEffects().forEach(effect -> {
+            bukkitPlayer.removePotionEffect(effect.getType());
+        });
         bukkitPlayer.setGameMode(GameMode.ADVENTURE);
         if(gameState != GameState.IDLE){
             bukkitPlayer.setAllowFlight(true);
@@ -78,6 +81,7 @@ public class GameManager {
             bukkitPlayer.setAllowFlight(false);
             bukkitPlayer.setFlying(false);
             Bukkit.getOnlinePlayers().forEach(other->other.showPlayer(TesseractTag.getPlugin(), bukkitPlayer));
+            players.put(player.getUniqueId(), player);
         }
         bukkitPlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(1);
         bukkitPlayer.setSaturation(1000);
@@ -135,6 +139,8 @@ public class GameManager {
             addPlayer(TagPlayer.create(player));
             player.teleport(spawn);
             player.getInventory().clear();
+            player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
+
         });
         ShadowScoreboard.sendScoreboardUpdate();
     }
@@ -152,7 +158,7 @@ public class GameManager {
             player.teleport(spawn);
         });
         roundManager.startRound(true);
-        Bukkit.broadcast(Component.text(ChatColor.YELLOW + "You have "+roundManager.calculateTimer()+" seconds to run from the hunter!"));
+
     }
     public void pickNextHunter(){
         Random rand = new Random();

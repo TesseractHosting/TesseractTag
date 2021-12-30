@@ -41,20 +41,21 @@ public class ShadowScoreboard {
         final Team onlineCounter = board.getTeam("onlineCounter") != null ?  board.getTeam("onlineCounter") : board.registerNewTeam("onlineCounter");
         onlineCounter.addEntry(onlineCountEntry);
         onlineCounter.suffix(onlineCount());
-        obj.getScore(onlineCountEntry).setScore(15);
-        obj.getScore(ChatColor.RED.toString()+" ").setScore(14);
+        obj.getScore(onlineCountEntry).setScore(7);
+        obj.getScore(ChatColor.RED.toString()+" ").setScore(6);
         final Team hunter = board.getTeam("hunter") != null? board.getTeam("hunter") : board.registerNewTeam("hunter");
         hunter.addEntry(hunterEntry);
         hunter.suffix(getHunter());
-        obj.getScore(hunterEntry).setScore(13);
+        obj.getScore(hunterEntry).setScore(5);
         final Team timer = board.getTeam("timer") != null? board.getTeam("timer") : board.registerNewTeam("timer");
         timer.addEntry(timerEntry);
         timer.suffix(Component.text("00:00"));
-        obj.getScore(ChatColor.BLUE+" ").setScore(12);
-        obj.getScore(timerEntry).setScore(11);
-        obj.getScore(ChatColor.BLACK+" ").setScore(10);
-        obj.getScore(ChatColor.AQUA+".gg/Y7RKzctY99").setScore(9);
-        obj.getScore(ChatColor.AQUA+".gg/tesseract").setScore(8);
+        obj.getScore(ChatColor.BLUE+" ").setScore(4);
+        obj.getScore(timerEntry).setScore(3);
+        obj.getScore(ChatColor.BLACK+" ").setScore(2);
+        obj.getScore(ChatColor.AQUA+".gg/Y7RKzctY99").setScore(1);
+        obj.getScore(ChatColor.AQUA+".gg/tesseract").setScore(0);
+        obj.getScore(ChatColor.GOLD+"IP: "+ChatColor.AQUA+"tag.tesseract.club").setScore(8);
         player.setScoreboard(board);
     }
     public static void forceReloadScoreboards(){

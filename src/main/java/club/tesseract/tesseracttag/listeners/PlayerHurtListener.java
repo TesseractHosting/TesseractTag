@@ -4,6 +4,7 @@ import club.tesseract.tesseracttag.TesseractTag;
 import club.tesseract.tesseracttag.player.TagPlayer;
 import club.tesseract.tesseracttag.utils.GameState;
 import org.bukkit.EntityEffect;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -11,6 +12,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+
+import java.util.Objects;
 
 public class PlayerHurtListener extends ShadowListener{
 
@@ -39,11 +42,24 @@ public class PlayerHurtListener extends ShadowListener{
             return;
         }
         TagPlayer hunter = plugin.getGameManager().getPlayer(event.getDamager().getUniqueId());
-        if (hunter == null) {
+        TagPlayer prey = plugin.getGameManager().getPlayer(event.getEntity().getUniqueId());
+        if (hunter == null || prey == null) {
             event.setCancelled(true);
             return;
         }
-        if (!hunter.isHunter() || hunter.onCoolDown()) {
+        if(prey.isHunter()){
+            event.setCancelled(true);
+            return;
+        }
+        if(!hunter.isHunter()){
+            if(Objects.requireNonNull(((Player) event.getDamager()).getActiveItem()).getType() == Material.STICK){
+                event.setDamage(0);
+                return;
+            }
+            event.setCancelled(true);
+            return;
+        }
+        if (hunter.onCoolDown()) {
             event.setCancelled(true);
             return;
         }
